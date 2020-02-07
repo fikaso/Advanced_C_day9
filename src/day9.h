@@ -10,18 +10,18 @@
 
 #define NUM_OF_ELEMENTS 10
 
-typedef struct stack
+struct node
 {
-	int array[NUM_OF_ELEMENTS];
-	int index;
-}stack;
+    int data;
+    struct node *next;
+};
+typedef struct node node;
 
+node *top;
 
-void stackInit(stack* stack);
-int stackIsEmpty(stack* stack);
-int stackIsFull(stack* stack);
-void stackPush(stack* stack, int x);
-int stackPop(stack* stack);
-int stackTop(stack* stack);
+void Init();
+void push(int value);
+void pop();
+int isempty();
 
 #endif /* DAY9_H_ */

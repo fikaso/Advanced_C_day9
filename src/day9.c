@@ -13,100 +13,54 @@
 
 #include "day9.h"
 
-#define STACK_EMPTY -1
 #define TRUE 0
 #define FALSE 1
 
-void stackInit(stack* stack)
+
+void Init()
 {
-	stack->index = -1;
+    top = NULL;
 }
 
-int stackIsEmpty(stack* stack)
+void push(int value)
+{
+    node *tmp;
+    tmp = malloc(sizeof(node));
+    tmp -> data = value;
+    tmp -> next = top;
+    top = tmp;
+
+    printf("Pushed %d\n", value);
+}
+
+void pop()
+{
+    node *tmp;
+    int n;
+    tmp = top;
+    n = tmp->data;
+    top = top->next;
+    free(tmp);
+
+    printf("Popped %d\n", n);
+}
+
+int isempty()
 {
 	int ret = FALSE;
-	if(stack->index == STACK_EMPTY)
+	if(top == NULL)
 	{
 		ret = TRUE;
 	}
-	return ret;
+    return ret;
 }
 
-int stackIsFull(stack* stack)
+int main()
 {
-	int ret = FALSE;
-
-	if(stack->index == (NUM_OF_ELEMENTS - 1))
-	{
-		ret = TRUE;
-	}
-
-	return ret;
-}
-
-void stackPush(stack* stack, int x)
-{
-	if(FALSE == stackIsFull(stack))
-	{
-		stack->array[stack->index + 1] = x;
-		stack->index++;
-	}
-	else
-	{
-		printf("Stack is full, can't push\n");
-	}
-}
-
-int stackPop(stack* stack)
-{
-	int ret = FALSE;
-
-	if(FALSE == stackIsEmpty(stack))
-	{
-		ret = stack->array[stack->index];
-		stack->index--;
-	}
-	else
-	{
-		printf("Stack is empty, can't pop\n");
-	}
-
-	return ret;
-}
-
-int stackTop(stack* stack)
-{
-	int ret = FALSE;
-
-	if(FALSE == stackIsEmpty(stack))
-	{
-		ret = stack->array[stack->index];
-	}
-	else
-	{
-		printf("Stack is empty, can't top\n");
-	}
-
-	return ret;
-}
-
-int main(void) {
-
-	stack stog;
-	int temp;
-
-	stackInit(&stog);
-
-	temp = stackIsEmpty(&stog);
-
-	for(int i = 0; i < NUM_OF_ELEMENTS + 1; i++)
-	{
-		stackPush(&stog, i);
-	}
-
-	temp = stackIsEmpty(&stog);
-	temp = stackPop(&stog);
-	temp = stackTop(&stog);
-
-	return EXIT_SUCCESS;
+	Init();
+    push(10);
+    push(20);
+    push(30);
+    pop();
+    return 0;
 }
